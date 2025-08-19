@@ -1,0 +1,30 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "jsdom",
+  "setupFilesAfterEnv": ["<rootDir>/src/test-setup.ts"],
+  "moduleNameMapping": {
+    "^@/(.*)$": "<rootDir>/src/$1",
+    "^@domain/(.*)$": "<rootDir>/src/Domain/$1",
+    "^@application/(.*)$": "<rootDir>/src/Application/$1",
+    "^@infrastructure/(.*)$": "<rootDir>/src/Infrastructure/$1",
+    "^@presentation/(.*)$": "<rootDir>/src/Presentation/$1"
+  },
+  "testMatch": [
+    "<rootDir>/src/**/__tests__/**/*.{ts,tsx}",
+    "<rootDir>/src/**/*.{test,spec}.{ts,tsx}"
+  ],
+  "collectCoverageFrom": [
+    "src/**/*.{ts,tsx}",
+    "!src/**/*.d.ts",
+    "!src/main.tsx",
+    "!src/test-setup.ts"
+  ],
+  "coverageThreshold": {
+    "global": {
+      "branches": 70,
+      "functions": 70,
+      "lines": 70,
+      "statements": 70
+    }
+  }
+}

@@ -1,0 +1,361 @@
+/* Sticky Multi-Layer Menu Admin Styles */
+
+.sticky-mlm-admin {
+    max-width: 800px;
+}
+
+.sticky-mlm-admin__header {
+    background: #fff;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+}
+
+.sticky-mlm-admin__header h2 {
+    margin-top: 0;
+    color: #1e1e1e;
+}
+
+.sticky-mlm-admin__header p {
+    color: #646970;
+    margin-bottom: 0;
+}
+
+.sticky-mlm-admin h3 {
+    color: #1e1e1e;
+    border-bottom: 1px solid #ccd0d4;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.sticky-mlm-admin h4 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #1e1e1e;
+}
+
+.sticky-mlm-admin code {
+    display: block;
+    background: #f1f1f1;
+    padding: 0.75rem;
+    margin: 0.5rem 0 1rem 0;
+    border-radius: 4px;
+    font-family: Monaco, Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "DejaVu Sans Mono", monospace;
+    font-size: 13px;
+    color: #3c434a;
+    overflow-x: auto;
+}
+
+.sticky-mlm-admin ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+}
+
+.sticky-mlm-admin li {
+    margin-bottom: 0.5rem;
+}
+
+.sticky-mlm-admin .description {
+    font-style: italic;
+    color: #646970;
+}
+
+/* Form improvements */
+.sticky-mlm-admin .form-table th {
+    width: 200px;
+    vertical-align: top;
+    padding-top: 20px;
+}
+
+.sticky-mlm-admin .form-table td {
+    vertical-align: top;
+    padding: 15px 10px;
+}
+
+.sticky-mlm-admin .form-table label {
+    display: inline-block;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.sticky-mlm-admin input[type="checkbox"] {
+    margin-right: 8px;
+    margin-top: 2px;
+    vertical-align: top;
+}
+
+.sticky-mlm-admin input[type="number"],
+.sticky-mlm-admin input[type="text"] {
+    width: 80px;
+    margin-right: 5px;
+}
+
+.sticky-mlm-admin input[type="color"] {
+    width: 60px;
+    height: 32px;
+    border: 1px solid #ccd0d4;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.sticky-mlm-admin .description {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-style: italic;
+    color: #646970;
+    line-height: 1.4;
+}
+
+/* Tab navigation fixes */
+.sticky-mlm-admin .nav-tab-wrapper {
+    margin-bottom: 0;
+    border-bottom: 1px solid #ccd0d4;
+}
+
+.sticky-mlm-admin .nav-tab {
+    position: relative;
+    margin-right: 6px;
+    margin-bottom: -1px;
+    padding: 8px 12px;
+    border: 1px solid transparent;
+    border-bottom: none;
+    background: transparent;
+    color: #646970;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block; /* Ensure tabs are clickable */
+}
+
+.sticky-mlm-admin .nav-tab:hover {
+    color: #135e96;
+    background: #f6f7f7;
+    border-color: #c3c4c7 #c3c4c7 #f6f7f7;
+}
+
+.sticky-mlm-admin .nav-tab.nav-tab-active {
+    color: #1d2327;
+    background: #fff;
+    border-color: #c3c4c7 #c3c4c7 #fff;
+}
+
+.sticky-mlm-admin .tab-content {
+    display: none !important;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    border-top: none;
+    min-height: 300px;
+}
+
+.sticky-mlm-admin .tab-content.active {
+    display: block !important;
+}
+
+/* CSS-only fallback - show content when tab is focused */
+.sticky-mlm-admin .nav-tab:focus + .tab-content,
+.sticky-mlm-admin .nav-tab:target + .tab-content {
+    display: block !important;
+}
+
+/* Emergency fallback - show all content if JS fails */
+.sticky-mlm-admin.no-js .tab-content {
+    display: block !important;
+    border-top: 1px solid #ccd0d4;
+    margin-top: 10px;
+}
+
+/* Radio button groups */
+.sticky-mlm-admin fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.sticky-mlm-admin fieldset label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.sticky-mlm-admin input[type="radio"] {
+    margin-right: 8px;
+    margin-top: 0;
+}
+
+/* Notice styles */
+.sticky-mlm-admin .notice {
+    margin: 1rem 0;
+}
+
+.sticky-mlm-admin .notice.notice-info {
+    border-left-color: #72aee6;
+}
+
+.sticky-mlm-admin .notice p {
+    margin: 0.75rem 0;
+}
+
+/* WooCommerce integration section */
+.sticky-mlm-admin .woocommerce-features {
+    background: #f0f6fc;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.sticky-mlm-admin .woocommerce-features ul {
+    margin: 0.5rem 0;
+}
+
+.sticky-mlm-admin .woocommerce-features li {
+    color: #00a32a;
+    margin-bottom: 0.25rem;
+}
+
+/* Color table improvements */
+.sticky-mlm-admin .color-table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.sticky-mlm-admin .color-table td {
+    padding: 8px 10px;
+    vertical-align: middle;
+}
+
+.sticky-mlm-admin .color-table td:first-child {
+    width: 150px;
+    font-weight: 500;
+}
+
+/* Success/Error messages */
+.sticky-mlm-admin .success {
+    color: #00a32a;
+    font-weight: 500;
+}
+
+.sticky-mlm-admin .error {
+    color: #d63638;
+    font-weight: 500;
+}
+
+/* Button spacing */
+.sticky-mlm-admin .button {
+    margin-top: 5px;
+}
+
+/* Prevent text overlay issues */
+.sticky-mlm-admin * {
+    box-sizing: border-box;
+}
+
+.sticky-mlm-admin .form-table tr {
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.sticky-mlm-admin .form-table tr:last-child {
+    border-bottom: none;
+}
+
+/* Custom colors row toggle */
+.sticky-mlm-admin .custom-colors {
+    display: none;
+}
+
+.sticky-mlm-admin .custom-colors.show {
+    display: table-row !important;
+}
+
+/* Admin footer */
+.sticky-mlm-admin__footer {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+}
+
+.sticky-mlm-admin__footer h3 {
+    margin-top: 0;
+    color: #1e1e1e;
+}
+
+.sticky-mlm-admin__footer p {
+    margin-bottom: 0;
+    color: #646970;
+}
+
+/* Info section improvements */
+.sticky-mlm-admin__info {
+    margin-bottom: 2rem;
+}
+
+.sticky-mlm-admin__info .notice h3 {
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.sticky-mlm-admin__info .notice ul {
+    margin-bottom: 0.75rem;
+}
+
+/* Form validation */
+.sticky-mlm-admin input:invalid {
+    border-color: #d63638;
+    box-shadow: 0 0 0 1px #d63638;
+}
+
+.sticky-mlm-admin input:valid {
+    border-color: #00a32a;
+}
+
+/* Loading states */
+.sticky-mlm-admin .spinner {
+    float: none;
+    margin: 0 5px 0 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sticky-mlm-admin__header {
+        padding: 1rem;
+    }
+    
+    .sticky-mlm-admin__footer {
+        padding: 1rem;
+    }
+    
+    .sticky-mlm-admin code {
+        font-size: 12px;
+        padding: 0.5rem;
+    }
+    
+    .sticky-mlm-admin .form-table th,
+    .sticky-mlm-admin .form-table td {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+    }
+    
+    .sticky-mlm-admin .form-table th {
+        border-bottom: none;
+        padding-bottom: 5px;
+    }
+    
+    .sticky-mlm-admin .color-table td:first-child {
+        width: 100%;
+    }
+    
+    .sticky-mlm-admin .nav-tab-wrapper {
+        border-bottom: none;
+    }
+    
+    .sticky-mlm-admin .nav-tab {
+        display: block;
+        width: 100%;
+        margin: 0 0 -1px 0;
+        border-radius: 0;
+    }
+}

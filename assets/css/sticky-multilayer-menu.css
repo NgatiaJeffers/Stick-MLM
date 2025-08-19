@@ -1,0 +1,926 @@
+/* =============================================================================
+   Sticky Multi-Layer Menu - DigiCape Inspired Design
+   Enhanced version with improved sticky behavior and DigiCape aesthetics
+   ============================================================================= */
+
+/* Base reset and utility */
+.sticky-mlm, .sticky-mlm * { 
+    box-sizing: border-box; 
+}
+
+/* Root variables for theming */
+:root {
+    --mlm-main-bg: #4285f4;
+    --mlm-secondary-bg: #5a2d82;
+    --mlm-tertiary-bg: #2c1a4d;
+    --mlm-secondary-underline: #a78bfa;
+    --mlm-tertiary-underline: #c4b5fd;
+    --mlm-text-white: #ffffff;
+    --mlm-text-light: rgba(255, 255, 255, 0.9);
+    --mlm-hover-bg: rgba(255, 255, 255, 0.1);
+    --mlm-active-bg: rgba(255, 255, 255, 0.15);
+    --mlm-border-light: rgba(255, 255, 255, 0.1);
+    --mlm-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
+    --mlm-shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --mlm-transition: all 0.3s ease;
+    --mlm-transition-fast: all 0.2s ease;
+}
+
+/* Sticky positioning - Enhanced for all levels */
+.sticky-mlm--sticky {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+}
+
+.sticky-mlm--sticky .sticky-mlm__secondary-container {
+    position: sticky;
+    top: 60px; /* Height of main menu */
+    z-index: 9998;
+}
+
+.sticky-mlm--sticky .sticky-mlm__tertiary-container {
+    position: sticky;
+    top: 110px; /* Height of main + secondary */
+    z-index: 9997;
+}
+
+/* Main header container */
+.sticky-mlm {
+    width: 100%;
+    box-shadow: 0 0 0 transparent;
+    transition: var(--mlm-transition-fast);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    position: relative;
+    background: var(--mlm-text-white);
+}
+
+.sticky-mlm.is-scrolled {
+    box-shadow: var(--mlm-shadow);
+}
+
+.sticky-mlm:not(.sticky-mlm--initialized) {
+    opacity: 0;
+}
+
+.sticky-mlm--initialized {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* =============================================================================
+   Main Menu Row (DigiCape Blue Bar)
+   ============================================================================= */
+
+.sticky-mlm__row--main {
+    background: var(--mlm-main-bg);
+    color: var(--mlm-text-white);
+    border-bottom: 1px solid var(--mlm-border-light);
+    min-height: 60px;
+    position: relative;
+}
+
+.sticky-mlm__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px; /* DigiCape uses wide containers */
+    margin: 0 auto;
+    padding: 0 24px;
+    min-height: 60px;
+}
+
+/* Brand/Logo - DigiCape Style */
+.sticky-mlm__brand {
+    flex-shrink: 0;
+    margin-right: 40px;
+}
+
+.sticky-mlm__logo {
+    color: var(--mlm-text-white);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    padding: 16px 0;
+    letter-spacing: -0.5px;
+    transition: var(--mlm-transition-fast);
+}
+
+.sticky-mlm__logo:hover {
+    color: var(--mlm-text-light);
+    transform: translateY(-1px);
+}
+
+/* Main Navigation - DigiCape Style */
+.sticky-mlm__nav--main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.mlm-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.mlm-menu--level1 {
+    gap: 0;
+    height: 60px;
+}
+
+.mlm-menu--level1 > li {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.mlm-menu--level1 > li > a {
+    display: flex;
+    align-items: center;
+    color: var(--mlm-text-white);
+    text-decoration: none;
+    padding: 0 24px;
+    font-weight: 500;
+    font-size: 15px;
+    transition: var(--mlm-transition-fast);
+    position: relative;
+    white-space: nowrap;
+    height: 100%;
+    border-bottom: 3px solid transparent;
+}
+
+.mlm-menu--level1 > li.menu-item-has-children > a::after {
+    content: "▼";
+    margin-left: 8px;
+    font-size: 10px;
+    opacity: 0.8;
+    transition: transform 0.3s ease;
+}
+
+.mlm-menu--level1 > li.active > a::after,
+.mlm-menu--level1 > li.mlm-item--active > a::after {
+    transform: rotate(180deg);
+}
+
+.mlm-menu--level1 > li > a:hover,
+.mlm-menu--level1 > li.active > a,
+.mlm-menu--level1 > li.mlm-item--active > a,
+.mlm-menu--level1 > li.current-menu-item > a,
+.mlm-menu--level1 > li.current-menu-parent > a {
+    background: var(--mlm-active-bg);
+    border-bottom-color: var(--mlm-text-white);
+    color: var(--mlm-text-white);
+}
+
+/* Utilities section - DigiCape Style */
+.sticky-mlm__utils {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+    margin-left: 40px;
+}
+
+.mlm-util {
+    color: var(--mlm-text-white);
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    transition: var(--mlm-transition-fast);
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.mlm-util:hover {
+    background: var(--mlm-hover-bg);
+    color: var(--mlm-text-white);
+    transform: translateY(-1px);
+}
+
+/* Search form - DigiCape Style */
+.mlm-util--search {
+    position: relative;
+}
+
+.mlm-util--search form {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    overflow: hidden;
+    min-width: 280px;
+    transition: var(--mlm-transition-fast);
+}
+
+.mlm-util--search form:focus-within {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.mlm-util--search input[type="search"] {
+    background: transparent;
+    border: none;
+    padding: 10px 16px;
+    color: var(--mlm-text-white);
+    font-size: 14px;
+    flex: 1;
+    outline: none;
+    min-width: 200px;
+}
+
+.mlm-util--search input[type="search"]::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.mlm-util--search button,
+.mlm-util--search .search-submit {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--mlm-text-white);
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: var(--mlm-transition-fast);
+}
+
+.mlm-util--search button:hover,
+.mlm-util--search .search-submit:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Cart badge - DigiCape Style */
+.mlm-cart-badge,
+.mlm-cart__count {
+    background: #ea4335;
+    color: var(--mlm-text-white);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    border: 2px solid var(--mlm-main-bg);
+}
+
+/* =============================================================================
+   Secondary Menu Row (Purple Bar - DigiCape Style)
+   ============================================================================= */
+
+.sticky-mlm__secondary-container {
+    background: var(--mlm-secondary-bg);
+    color: var(--mlm-text-white);
+    border-bottom: 1px solid var(--mlm-border-light);
+    min-height: 50px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: var(--mlm-transition);
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+}
+
+.sticky-mlm__secondary-container.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    height: auto;
+}
+
+.sticky-mlm__secondary-container .sticky-mlm__nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+}
+
+.sticky-mlm__secondary-container .mlm-menu--level2 {
+    display: flex !important;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+}
+
+.sticky-mlm__secondary-container .menu-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.sticky-mlm__secondary-container .menu-item a {
+    display: flex;
+    align-items: center;
+    color: var(--mlm-text-white);
+    text-decoration: none;
+    padding: 15px 24px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: var(--mlm-transition-fast);
+    position: relative;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+}
+
+.sticky-mlm__secondary-container .menu-item-has-children a::after {
+    content: "▼";
+    margin-left: 6px;
+    font-size: 9px;
+    opacity: 0.8;
+    transition: transform 0.3s ease;
+}
+
+.sticky-mlm__secondary-container .menu-item.active a::after,
+.sticky-mlm__secondary-container .menu-item.mlm-item--active a::after {
+    transform: rotate(180deg);
+}
+
+.sticky-mlm__secondary-container .menu-item:hover,
+.sticky-mlm__secondary-container .menu-item.active,
+.sticky-mlm__secondary-container .menu-item.mlm-item--active {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sticky-mlm__secondary-container .menu-item:hover a,
+.sticky-mlm__secondary-container .menu-item.active a,
+.sticky-mlm__secondary-container .menu-item.mlm-item--active a {
+    color: var(--mlm-text-white);
+    border-bottom-color: var(--mlm-secondary-underline);
+}
+
+/* =============================================================================
+   Tertiary Menu Row (Darker Purple - DigiCape Style)
+   ============================================================================= */
+
+.sticky-mlm__tertiary-container {
+    background: var(--mlm-tertiary-bg);
+    color: var(--mlm-text-white);
+    border-bottom: 1px solid var(--mlm-border-light);
+    min-height: 45px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: var(--mlm-transition);
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+}
+
+.sticky-mlm__tertiary-container.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    height: auto;
+}
+
+.sticky-mlm__tertiary-container .sticky-mlm__nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 45px;
+}
+
+.sticky-mlm__tertiary-container .mlm-menu--level3 {
+    display: flex !important;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+}
+
+.sticky-mlm__tertiary-container .menu-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.sticky-mlm__tertiary-container .menu-item a {
+    display: flex;
+    align-items: center;
+    color: var(--mlm-text-white);
+    text-decoration: none;
+    padding: 12px 20px;
+    font-weight: 400;
+    font-size: 13px;
+    transition: var(--mlm-transition-fast);
+    position: relative;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+}
+
+.sticky-mlm__tertiary-container .menu-item:hover,
+.sticky-mlm__tertiary-container .menu-item.active,
+.sticky-mlm__tertiary-container .menu-item.mlm-item--active {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sticky-mlm__tertiary-container .menu-item:hover a,
+.sticky-mlm__tertiary-container .menu-item.active a,
+.sticky-mlm__tertiary-container .menu-item.mlm-item--active a {
+    color: var(--mlm-text-white);
+    border-bottom-color: var(--mlm-tertiary-underline);
+}
+
+/* =============================================================================
+   Mobile Hamburger - DigiCape Style
+   ============================================================================= */
+
+.mlm-hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--mlm-text-white);
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 6px;
+    transition: var(--mlm-transition-fast);
+    flex-direction: column;
+    gap: 4px;
+    width: 44px;
+    height: 44px;
+    justify-content: center;
+    align-items: center;
+}
+
+.mlm-hamburger:hover {
+    background: var(--mlm-hover-bg);
+}
+
+.mlm-hamburger__bar {
+    width: 22px;
+    height: 2px;
+    background: var(--mlm-text-white);
+    transition: var(--mlm-transition);
+    border-radius: 1px;
+    transform-origin: center;
+}
+
+.mlm-hamburger.is-open .mlm-hamburger__bar:nth-child(1),
+.mlm-hamburger[aria-expanded="true"] .mlm-hamburger__bar:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mlm-hamburger.is-open .mlm-hamburger__bar:nth-child(2),
+.mlm-hamburger[aria-expanded="true"] .mlm-hamburger__bar:nth-child(2) {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.mlm-hamburger.is-open .mlm-hamburger__bar:nth-child(3),
+.mlm-hamburger[aria-expanded="true"] .mlm-hamburger__bar:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* =============================================================================
+   Mobile Off-canvas Menu - DigiCape Style
+   ============================================================================= */
+
+.mlm-offcanvas {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 90vw;
+    max-width: 360px;
+    height: 100vh;
+    background: var(--mlm-text-white);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+    z-index: 10000;
+    transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.mlm-offcanvas:not([hidden]) {
+    left: 0;
+}
+
+.mlm-offcanvas__header {
+    background: var(--mlm-main-bg);
+    color: var(--mlm-text-white);
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--mlm-border-light);
+    flex-shrink: 0;
+}
+
+.mlm-offcanvas__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.mlm-offcanvas__close {
+    background: none;
+    border: none;
+    color: var(--mlm-text-white);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: var(--mlm-transition-fast);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mlm-offcanvas__close:hover {
+    background: var(--mlm-hover-bg);
+}
+
+.mlm-offcanvas__body {
+    flex: 1;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.mlm-menu--mobile {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    margin: 0;
+}
+
+.mlm-menu--mobile .menu-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.mlm-menu--mobile .menu-item:last-child {
+    border-bottom: none;
+}
+
+.mlm-menu--mobile .menu-item a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 16px 24px;
+    transition: var(--mlm-transition-fast);
+    font-weight: 500;
+}
+
+.mlm-menu--mobile .menu-item:hover {
+    background: rgba(66, 133, 244, 0.05);
+}
+
+.mlm-menu--mobile .menu-item a:hover {
+    color: var(--mlm-main-bg);
+}
+
+/* Mobile submenu styling */
+.mlm-menu--mobile .menu-item ul {
+    display: none;
+    background: rgba(0, 0, 0, 0.02);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    transition: var(--mlm-transition);
+}
+
+.mlm-menu--mobile .menu-item ul.is-open {
+    display: block;
+}
+
+.mlm-menu--mobile .menu-item ul .menu-item a {
+    padding-left: 40px;
+    font-weight: 400;
+    color: #666;
+}
+
+.mlm-menu--mobile .menu-item ul ul .menu-item a {
+    padding-left: 56px;
+    font-size: 13px;
+}
+
+/* Mobile expand buttons */
+.mlm-expand {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: var(--mlm-transition-fast);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mlm-expand:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--mlm-main-bg);
+}
+
+.mlm-expand-icon {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 1;
+}
+
+/* Mobile overlay */
+.mlm-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+    pointer-events: none; /* Default to non-interactive */
+}
+
+.mlm-overlay:not([hidden]) {
+    opacity: 1;
+    pointer-events: auto; /* Enable interaction only when visible */
+}
+
+/* Ensure React overlay also follows this pattern */
+.sticky-multilayer-menu__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: calc(var(--menu-z-index, 1000) - 1);
+    animation: fadeIn 0.3s ease-out;
+    pointer-events: auto; /* Only active when rendered */
+}
+
+/* =============================================================================
+   Responsive Design - DigiCape Style
+   ============================================================================= */
+
+@media (max-width: 1200px) {
+    .sticky-mlm__container {
+        padding: 0 20px;
+    }
+    
+    .sticky-mlm__brand {
+        margin-right: 30px;
+    }
+    
+    .sticky-mlm__utils {
+        margin-left: 30px;
+        gap: 12px;
+    }
+    
+    .mlm-util--search form {
+        min-width: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mlm-hamburger {
+        display: flex;
+    }
+
+    .sticky-mlm__nav--main,
+    .sticky-mlm__secondary-container,
+    .sticky-mlm__tertiary-container {
+        display: none !important;
+    }
+
+    .sticky-mlm__container {
+        padding: 0 16px;
+        min-height: 56px;
+    }
+
+    .sticky-mlm__logo {
+        font-size: 18px;
+        padding: 14px 0;
+    }
+
+    .sticky-mlm__brand {
+        margin-right: 16px;
+    }
+
+    .sticky-mlm__utils {
+        margin-left: 16px;
+        gap: 8px;
+    }
+
+    .mlm-util--search {
+        display: none; /* Hide search on mobile to save space */
+    }
+
+    .mlm-util {
+        padding: 8px 10px;
+        font-size: 16px;
+    }
+
+    /* Update sticky positions for mobile */
+    .sticky-mlm--sticky .sticky-mlm__secondary-container,
+    .sticky-mlm--sticky .sticky-mlm__tertiary-container {
+        top: 56px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sticky-mlm__container {
+        padding: 0 12px;
+    }
+    
+    .sticky-mlm__logo {
+        font-size: 16px;
+    }
+    
+    .mlm-util {
+        padding: 6px 8px;
+    }
+    
+    .mlm-offcanvas {
+        width: 95vw;
+        max-width: 320px;
+    }
+}
+
+/* =============================================================================
+   Animation and Loading States - DigiCape Style
+   ============================================================================= */
+
+.mlm-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.mlm-cart-badge.loading,
+.mlm-cart__count.loading {
+    animation: pulse-glow 1.5s infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { 
+        opacity: 1; 
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.7; 
+        transform: scale(1.1);
+    }
+}
+
+/* Smooth reveal animation for menus */
+@keyframes slideDownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sticky-mlm__secondary-container.show,
+.sticky-mlm__tertiary-container.show {
+    animation: slideDownFade 0.3s ease-out;
+}
+
+/* =============================================================================
+   Accessibility and Focus States
+   ============================================================================= */
+
+.mlm-menu a:focus,
+.mlm-util:focus,
+.mlm-hamburger:focus,
+.mlm-offcanvas__close:focus {
+    outline: 2px solid var(--mlm-text-white);
+    outline-offset: 2px;
+}
+
+.mlm-menu--mobile a:focus {
+    outline-color: var(--mlm-main-bg);
+    background: rgba(66, 133, 244, 0.1);
+}
+
+.screen-reader-text {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden;
+    word-wrap: normal !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .sticky-mlm__row--main,
+    .sticky-mlm__secondary-container,
+    .sticky-mlm__tertiary-container {
+        border-bottom-width: 2px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .sticky-mlm,
+    .sticky-mlm *,
+    .mlm-offcanvas,
+    .mlm-overlay,
+    .mlm-hamburger__bar {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* =============================================================================
+   Enhanced Visual Effects - DigiCape Polish
+   ============================================================================= */
+
+/* Subtle gradients for depth */
+.sticky-mlm__row--main {
+    background: linear-gradient(135deg, var(--mlm-main-bg) 0%, color-mix(in srgb, var(--mlm-main-bg) 90%, black) 100%);
+}
+
+.sticky-mlm__secondary-container {
+    background: linear-gradient(135deg, var(--mlm-secondary-bg) 0%, color-mix(in srgb, var(--mlm-secondary-bg) 90%, black) 100%);
+}
+
+.sticky-mlm__tertiary-container {
+    background: linear-gradient(135deg, var(--mlm-tertiary-bg) 0%, color-mix(in srgb, var(--mlm-tertiary-bg) 90%, black) 100%);
+}
+
+/* Enhanced hover effects */
+.mlm-menu--level1 > li > a:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sticky-mlm__secondary-container .menu-item:hover a,
+.sticky-mlm__tertiary-container .menu-item:hover a {
+    transform: translateY(-1px);
+}
+
+/* Loading spinner for dynamic content */
+.mlm-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Enhanced active states */
+.mlm-menu--level1 > li.active > a,
+.mlm-menu--level1 > li.mlm-item--active > a {
+    box-shadow: inset 0 -3px 0 var(--mlm-text-white);
+    background: var(--mlm-active-bg);
+}
+
+/* Smooth state transitions */
+.menu-item {
+    transition: var(--mlm-transition-fast);
+}
+
+.menu-item.active,
+.menu-item.mlm-item--active {
+    transform: translateY(-1px);
+}

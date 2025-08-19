@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Menu Overlay Fix Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .test-content {
+            padding: 100px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .test-button {
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .test-button:hover {
+            background: #3367d6;
+        }
+        
+        .test-link {
+            color: #4285f4;
+            text-decoration: underline;
+            cursor: pointer;
+            margin: 10px;
+            display: inline-block;
+        }
+        
+        .interaction-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            z-index: 99999;
+        }
+        
+        .interaction-status.clickable {
+            background: #4CAF50;
+        }
+        
+        .interaction-status.blocked {
+            background: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="interaction-status" id="interactionStatus">Testing interactions...</div>
+    
+    <div class="test-content">
+        <h1>Sticky Menu Overlay Fix Test</h1>
+        <p>This page tests whether the sticky menu overlay is blocking site interactions.</p>
+        
+        <h2>Test Elements</h2>
+        <button class="test-button" onclick="testClick('Button 1')">Test Button 1</button>
+        <button class="test-button" onclick="testClick('Button 2')">Test Button 2</button>
+        <button class="test-button" onclick="testClick('Button 3')">Test Button 3</button>
+        
+        <br><br>
+        
+        <a href="#" class="test-link" onclick="testClick('Link 1'); return false;">Test Link 1</a>
+        <a href="#" class="test-link" onclick="testClick('Link 2'); return false;">Test Link 2</a>
+        <a href="#" class="test-link" onclick="testClick('Link 3'); return false;">Test Link 3</a>
+        
+        <h2>Instructions</h2>
+        <ol>
+            <li>Scroll down to activate the sticky menu</li>
+            <li>Try clicking the buttons and links above</li>
+            <li>Check the status indicator in the top-right corner</li>
+            <li>If elements are clickable, the fix is working</li>
+        </ol>
+        
+        <h2>Overlay Detection</h2>
+        <p id="overlayInfo">Checking for overlays...</p>
+        
+        <h2>Long Content for Scrolling</h2>
+        <p>This is some long content to enable scrolling and trigger the sticky menu behavior.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        
+        <div style="height: 1000px; background: linear-gradient(to bottom, #f5f5f5, #e0e0e0);">
+            <p style="padding-top: 50px; text-align: center;">Keep scrolling to test sticky behavior...</p>
+        </div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        const statusEl = document.getElementById('interactionStatus');
+        const overlayInfoEl = document.getElementById('overlayInfo');
+        
+        function testClick(elementName) {
+            clickCount++;
+            console.log(`Clicked: ${elementName} (click #${clickCount})`);
+            statusEl.textContent = `✓ Clickable! Last: ${elementName} (#${clickCount})`;
+            statusEl.className = 'interaction-status clickable';
+        }
+        
+        function checkOverlays() {
+            const overlays = document.querySelectorAll('.mlm-overlay, .sticky-multilayer-menu__overlay');
+            const visibleOverlays = Array.from(overlays).filter(overlay => {
+                const style = window.getComputedStyle(overlay);
+                return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+            });
+            
+            overlayInfoEl.innerHTML = `
+                <strong>Overlay Status:</strong><br>
+                Total overlays found: ${overlays.length}<br>
+                Visible overlays: ${visibleOverlays.length}<br>
+                ${visibleOverlays.length > 0 ? '⚠️ <span style="color: red;">Visible overlays detected!</span>' : '✅ <span style="color: green;">No blocking overlays</span>'}
+            `;
+            
+            if (visibleOverlays.length > 0) {
+                statusEl.textContent = '❌ Site may be blocked by overlay';
+                statusEl.className = 'interaction-status blocked';
+                console.warn('Visible overlays detected:', visibleOverlays);
+            }
+        }
+        
+        // Check overlays periodically
+        setInterval(checkOverlays, 2000);
+        setTimeout(checkOverlays, 500);
+        
+        // Test for click blocking
+        let lastMouseMove = Date.now();
+        document.addEventListener('mousemove', () => {
+            lastMouseMove = Date.now();
+        });
+        
+        setInterval(() => {
+            if (Date.now() - lastMouseMove > 5000 && clickCount === 0) {
+                statusEl.textContent = '⚠️ No interactions detected - possible blocking';
+                statusEl.className = 'interaction-status blocked';
+            }
+        }, 6000);
+        
+        console.log('Overlay fix test page loaded');
+    </script>
+</body>
+</html>
