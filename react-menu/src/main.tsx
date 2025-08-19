@@ -69,53 +69,20 @@ function initStickyMultiLayerMenu() {
   try {
     const root = ReactDOM.createRoot(targetElement);
     
-    // Start with a simple test component to verify React is working
-    const TestComponent = () => (
-      <div style={{
-        background: '#4285f4',
-        color: 'white',
-        padding: '20px',
-        textAlign: 'center',
-        position: 'relative',
-        zIndex: 9999
-      }}>
-        <h2>✅ React Menu Loading Successfully!</h2>
-        <p>WordPress Data: {window.stickyMLMData?.menuData ? 'Available' : 'Not Available'}</p>
-        <p>Menu Items: {window.stickyMLMData?.menuData?.items?.length || 0}</p>
-        <div style={{ marginTop: '10px', fontSize: '12px', opacity: 0.9 }}>
-          This will be replaced by the full menu component once everything is working.
-        </div>
-      </div>
-    );
-    
+    // Render the full menu component immediately
     root.render(
       <React.StrictMode>
-        <TestComponent />
+        <StickyMultiLayerMenu 
+          apiUrl={window.stickyMLMData.apiUrl}
+          nonce={window.stickyMLMData.nonce}
+          initialMenuData={window.stickyMLMData.menuData}
+          currentUrl={window.stickyMLMData.currentUrl}
+          isWooCommerceActive={window.stickyMLMData.isWooCommerceActive}
+        />
       </React.StrictMode>
     );
     
-    // After 3 seconds, try to load the full component
-    setTimeout(() => {
-      try {
-        root.render(
-          <React.StrictMode>
-            <StickyMultiLayerMenu 
-              apiUrl={window.stickyMLMData.apiUrl}
-              nonce={window.stickyMLMData.nonce}
-              initialMenuData={window.stickyMLMData.menuData}
-              currentUrl={window.stickyMLMData.currentUrl}
-              isWooCommerceActive={window.stickyMLMData.isWooCommerceActive}
-            />
-          </React.StrictMode>
-        );
-        console.log('Full React app loaded after delay');
-      } catch (fullError) {
-        console.error('Error loading full app:', fullError);
-        // Keep the test component if full app fails
-      }
-    }, 3000);
-    
-    console.log('React test component rendered successfully');
+    console.log('React menu app rendered successfully');
   } catch (error) {
     console.error('Error rendering React app:', error);
   }

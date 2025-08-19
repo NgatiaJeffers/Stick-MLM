@@ -229,12 +229,15 @@ export const StickyMultiLayerMenu: React.FC<StickyMultiLayerMenuProps> = ({
     }
   );
 
-  // If not initialized, show loading state or fallback
+  // Show loading state during initialization
   if (!isInitialized) {
     return (
       <div className="sticky-multilayer-menu sticky-multilayer-menu--loading">
-        <div className="sticky-multilayer-menu__loader">
-          <span>Loading menu...</span>
+        <div className="sticky-multilayer-menu__container">
+          <div className="sticky-multilayer-menu__loader">
+            <div className="sticky-multilayer-menu__spinner"></div>
+            <span>Loading navigation...</span>
+          </div>
         </div>
       </div>
     );
